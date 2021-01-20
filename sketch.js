@@ -3,12 +3,12 @@ const World = Matter.World;
 const Bodies = Matter.Bodies;
 const Constraint = Matter.Constraint;
 var engine, world;
-
+var score;
 var holder,ball,ground;
 var stand1,stand2;
 var ball;
-var slingShot;
-var polygon_img;
+var slingshot;
+var score = 0;
 
 function preload(){
  // polygon_img=loadImage("polygon.png");
@@ -18,7 +18,7 @@ function preload(){
 function setup() {
   engine  = Engine.create();
   world = engine.world;
-
+  
   createCanvas(900,400);
   ground = new Ground();
   stand1 = new Stand(380,300,270,10);
@@ -69,7 +69,7 @@ function setup() {
   ball = Bodies.circle(50,200,20);
   World.add(world,ball);
 
-  slingShot = new SlingShot(this.ball,{x:200,y:200});
+  slingshot = new SlingShot(this.ball,{x:200,y:200}); 
 
 }
 
@@ -77,7 +77,12 @@ function draw() {
  // background(backgroundImg);  
  background("white")
   Engine.update(engine);
- 
+  strokeWeight(2);
+  stroke("white");
+  textSize(13);
+  fill("red");
+  text("Score :"+ score, width-300, 50);
+
   
  // ground.display();
   strokeWeight(2);
@@ -89,31 +94,51 @@ function draw() {
   stroke(15);
   fill("black")
   block1.display();
+  block1.score();
   block2.display();
+  block2.score();
   block3.display();
+  block3.score();
   block4.display();
+  block4.score();
   block5.display();
+  block5.score();
   block6.display();
+  block6.score();
   block7.display();
+  block7.score();
   block8.display();
+  block8.score();
   stroke(15)
   fill("orange")
   block9.display();
+  block9.score();
   block10.display();
+  block10.score();
   block11.display();
+  block11.score();
   block12.display();
+  block12.score();
   block13.display();
+  block13.score();
   block14.display();
+  block14.score();
  stroke(15)
  fill("violet")
   block15.display();
+  block15.score();
   block16.display();
+  block16.score();
   block17.display();
+  block17.score();
   block18.display();
+  block18.score();
     stroke(15)
     fill("green")
   block19.display();
+  block19.score();
   block20.display();
+  block20.score();
  stroke(15)
  fill("blue")
   block21.display();
@@ -137,8 +162,8 @@ function draw() {
  //imageMode(CENTER)
  //ball = loadImage(polygon_img ,ball.position.x-50,ball.position.y-80,40,40);
  // ellipseMode(RADIUS);
-  ellipse(ball.position.x,ball.position.y,20);
-  slingShot.display();
+  ellipse(ball.position.x,ball.position.y,20,20);
+  slingshot.display();
 }
 
 function mouseDragged(){
@@ -146,5 +171,11 @@ function mouseDragged(){
 }
 
 function mouseReleased(){
-  slingShot.fly();
+  slingshot.fly();
+}
+
+function keyPressed(){
+  if(keyCode === 32){
+      slingshot.attach(this.ball);
+  }
 }
